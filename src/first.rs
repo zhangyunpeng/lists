@@ -1,5 +1,3 @@
-use std::path::Iter;
-
 pub struct List<T> {
     head: Link<T>,
 }
