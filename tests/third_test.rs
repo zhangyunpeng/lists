@@ -1,0 +1,51 @@
+
+#[cfg(test)]
+mod third_test {
+    use lists::third::List;
+    #[test]
+    fn basic() {
+        let mut list = List::new();
+        list.push_front(1);
+        list.push_front(2);
+        list.push_front(3);
+        assert_eq!(list.pop_front(), Some(3));
+        assert_eq!(list.pop_front(), Some(2));
+        assert_eq!(list.pop_front(), Some(1));
+        assert_eq!(list.pop_front(), None);
+
+        list.push_front(1);
+        list.push_back(2);
+        assert_eq!(list.pop_front(), Some(1));
+        assert_eq!(list.pop_front(), Some(2));
+        assert_eq!(list.pop_front(), None);
+
+        list.push_front(1);
+        list.push_back(2);
+        list.push_back(3);
+        assert_eq!(list.pop_back(), Some(3));
+        assert_eq!(list.pop_front(), Some(1));
+        assert_eq!(list.pop_back(), Some(2));
+        assert_eq!(list.pop_back(), None);
+
+    }
+
+    #[test]
+    fn into_iter() {
+        let mut list = List::new();
+        list.push_front(1);
+        list.push_front(2);
+        list.push_front(3);
+        list.push_front(4);
+        list.push_front(5);
+        list.push_front(6);
+        let mut i = list.into_iter();
+        assert_eq!(i.next(), Some(6));
+        assert_eq!(i.next_back(), Some(1));
+        assert_eq!(i.next(), Some(5));
+        assert_eq!(i.next_back(), Some(2));
+        assert_eq!(i.next(), Some(4));
+        assert_eq!(i.next_back(), Some(3));
+        assert_eq!(i.next(), None);
+        assert_eq!(i.next_back(), None);
+    }
+}
