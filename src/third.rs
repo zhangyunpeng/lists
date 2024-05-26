@@ -1,5 +1,5 @@
 use std::{
-    cell::RefCell, rc::Rc
+    cell::{Ref, RefCell, RefMut}, rc::Rc
 };
 
 pub struct List<T> {
@@ -80,6 +80,30 @@ impl<T> List<T> {
                 }
             }
             Rc::try_unwrap(old_tail).ok().unwrap().into_inner().elem
+        })
+    }
+
+    pub fn peek_front(&self) -> Option<Ref<T>> {
+        self.head.as_ref().map(|node|{
+            Ref::map(node.borrow(), |node|&node.elem)
+        })
+    }
+
+    pub fn peek_front_mut(&mut self) -> Option<RefMut<T>> {
+        self.head.as_ref().map(|node|{
+            RefMut::map(node.borrow_mut(), |node|&mut node.elem)
+        })
+    }
+
+    pub fn peek_back(&self) -> Option<Ref<T>> {
+        self.tail.as_ref().map(|node|{
+            Ref::map(node.borrow(), |node|&node.elem)
+        })
+    }
+
+    pub fn peek_back_mut(&mut self) -> Option<RefMut<T>> {
+        self.tail.as_ref().map(|node|{
+            RefMut::map(node.borrow_mut(), |node|&mut node.elem)
         })
     }
 }

@@ -1,6 +1,8 @@
 
 #[cfg(test)]
 mod third_test {
+    use std::cell::Ref;
+
     use lists::third::List;
     #[test]
     fn basic() {
@@ -56,5 +58,17 @@ mod third_test {
             list.push_front(i);
         }
         drop(list);
+    }
+
+    #[test]
+    fn peek() {
+        let mut list = List::new();
+        list.push_front(1);
+        list.push_front(2);
+        list.push_front(3);
+        assert_eq!(&*list.peek_front().unwrap(), &3);
+        assert_eq!(&mut *list.peek_front_mut().unwrap(), &mut 3);
+        assert_eq!(&*list.peek_back().unwrap(), &1);
+        assert_eq!(&mut *list.peek_back_mut().unwrap(), &mut 1);
     }
 }
