@@ -48,4 +48,13 @@ mod third_test {
         assert_eq!(i.next(), None);
         assert_eq!(i.next_back(), None);
     }
+
+    #[test]
+    fn long_list() {
+        let mut list = List::new();
+        for i in 0..100000 {
+            list.push_front(i);
+        }
+        drop(list);
+    }
 }
