@@ -1,8 +1,6 @@
 
 #[cfg(test)]
 mod third_test {
-    use std::cell::Ref;
-
     use lists::third::List;
     #[test]
     fn basic() {
